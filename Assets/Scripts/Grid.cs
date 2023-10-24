@@ -6,6 +6,16 @@ using CodeMonkey.Utils;
 
 public class Grid<TGridObject>
 {
+    public const int HEAT_MAP_MAX_VALUE = 100;
+    public const int HEAT_MAP_MIN_VALUE = 0;
+    public event EventHandler<OnGridValueChangedEventArgs> OnGridObjectChanged;
+
+    public class OnGridValueChangedEventArgs : EventArgs
+    {
+        public int x;
+        public int y;
+    }
+
     private int width;
     private int height;
     private float cellSize;
@@ -47,6 +57,11 @@ public class Grid<TGridObject>
 
             Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
             Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+
+            OnGridObjectChanged += (object sender, OnGridValueChangedEventArgs eventArgs) =>
+            {
+                debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y].ToString();
+            };
         }
     }
 
@@ -58,6 +73,11 @@ public class Grid<TGridObject>
     public int GetHeight()
     {
         return height;
+    }
+
+    public float GetCellSize()
+    {
+        return cellSize;
     }
 
     private Vector3 GetWorldPosition(int x, int y)
@@ -76,8 +96,14 @@ public class Grid<TGridObject>
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
             gridArray[x, y] = value;
-            debugTextArray[x, y].text = gridArray[x, y].ToString();
+
+            if (OnGridObjectChanged != null) OnGridObjectChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
         }        
+    }
+
+    public void TriggerGridObjectChanged(int x, int y)
+    {
+        if (OnGridObjectChanged != null) OnGridObjectChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
     }
 
     public void SetGridObject(Vector3 worldPosition, TGridObject value)
