@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Pathfinding/Scripts/PathfindingVisual.cs.meta
+guid: f2be01a8c46d7614d91f2f49078a6aa1
+========
+guid: f45e12effe851b14e9283ce551b4d327
+>>>>>>>> Stashed changes:Assets/Pathfinding/Scripts/GridCellVisualize.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Pathfinding/Scripts/PathNode.cs.meta
+guid: f69fc266fd7c0194eb3bee49b118eb6c
+========
+guid: ad0e45f539b6b2c4b84228f3af216a02
+>>>>>>>> Stashed changes:Assets/Pathfinding/Scripts/GameAI/Pathfinding/PathFinder.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

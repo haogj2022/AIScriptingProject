@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Pathfinding/Scripts/Grid.cs.meta
+guid: 0a534b3390cd5564c97b201ba14e30af
+========
+guid: 5fee5c9ca00b60a4395f061d17b54aca
+>>>>>>>> Stashed changes:Assets/Pathfinding/Scripts/AIMovement.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
