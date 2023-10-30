@@ -6,9 +6,9 @@ using GameAI.PathFinding;
 public class GridVisualize : MonoBehaviour
 {
     // the max number of columns in the grid.
-    public int maxCol;
+    private int maxCol;
     // the max number of rows in the grid
-    public int maxRow;
+    private int maxRow;
 
     // The prefab for representing a grid cell. We will 
     // use the prefab to show/visualize the status of the cell
@@ -23,16 +23,26 @@ public class GridVisualize : MonoBehaviour
     protected Vector2Int[,] indices;
 
     // the 2d array of the GridCell.
-    protected GridCell[,] gridCells;
+    protected GridCell[,] gridCellArray;
 
-    public Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
-    public Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+    private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
+    private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 
-    public Transform aiDestination;
-    public AIMovement aiMovement;
+    //public Transform aiDestination;
+    public AIMovement ai1;
+    public AIMovement ai2;
 
     private void Start()
-    {       
+    {
+        int randomCol = Random.Range(10, 50);
+        int randomRow = Random.Range(10, 50);
+
+        maxCol = randomCol;
+        maxRow = randomRow;
+
+        ai1.transform.position = Vector2.zero;
+        ai2.transform.position = new Vector2(maxCol - 1, maxRow - 1);
+
         // Construct the grid and the cell game objects.
         Construct(maxCol, maxRow);
 
@@ -43,95 +53,93 @@ public class GridVisualize : MonoBehaviour
     void ResetCamera()
     {
         Camera.main.orthographicSize = maxRow / 2.0f + 1.0f;
-        Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -10.0f);
+        Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RayCastAndToggleWalkable();
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    RayCastAndToggleWalkable();
+        //}
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            RayCastAndSetDestination();
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    RayCastAndSetDestination();
+        //}
     }
 
-    // toggling of walkable/non-walkable cells.
-    public void RayCastAndToggleWalkable()
-    {
-        Vector2 rayPos = new Vector2(
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-        RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+    //// toggling of walkable/non-walkable cells.
+    //public void RayCastAndToggleWalkable()
+    //{
 
-        if (hit)
-        {
-            GameObject obj = hit.transform.gameObject;
-            GridCellVisualize selectedCell = obj.GetComponent<GridCellVisualize>();
-            ToggleWalkable(selectedCell);            
-        }
-    }
+    //    Debug.Log(Input.mousePosition);
 
-    public void ToggleWalkable(GridCellVisualize selectedCell)
-    {
-        if (selectedCell == null)
-        {
-            Debug.Log(selectedCell + " is null");
-            return;
-        }           
 
-        int x = selectedCell.gridCell.Value.x;
-        int y = selectedCell.gridCell.Value.y;
+    //    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-        selectedCell.gridCell.IsWalkable = !selectedCell.gridCell.IsWalkable;
+    //    if (hit.collider != null)
+    //    {
+    //        GameObject obj = hit.transform.gameObject;
+    //        GridCellVisualize selectedCell = obj.GetComponent<GridCellVisualize>();
+    //        ToggleWalkable(selectedCell);            
+    //    }
+    //}
 
-        if (selectedCell.gridCell.IsWalkable)
-        {
-            Debug.Log(selectedCell + " is now walkable");
-            selectedCell.SetInnerColor(walkableCell);
-        }
-        else
-        {
-            Debug.Log(selectedCell + " is now unwalkable");
-            selectedCell.SetInnerColor(unwalkableCell);
-        }
-    }
+    //public void ToggleWalkable(GridCellVisualize selectedCell)
+    //{
+    //    if (selectedCell == null)
+    //        return;     
 
-    void RayCastAndSetDestination()
-    {
-        Vector2 rayPos = new Vector2(
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-        RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+    //    int x = selectedCell.gridCell.Value.x;
+    //    int y = selectedCell.gridCell.Value.y;
 
-        if (hit)
-        {
-            GameObject obj = hit.transform.gameObject;
-            GridCellVisualize selectedCell = obj.GetComponent<GridCellVisualize>();
-            if (selectedCell == null) return;
+    //    selectedCell.gridCell.IsWalkable = !selectedCell.gridCell.IsWalkable;
 
-            Vector3 pos = aiDestination.position;
-            pos.x = selectedCell.gridCell.Value.x;
-            pos.y = selectedCell.gridCell.Value.y;
-            aiDestination.position = pos;
+    //    if (selectedCell.gridCell.IsWalkable)
+    //    {
+    //        Debug.Log(selectedCell + " is now walkable");
+    //        selectedCell.SetInnerColor(walkableCell);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log(selectedCell + " is now unwalkable");
+    //        selectedCell.SetInnerColor(unwalkableCell);
+    //    }
+    //}
 
-            // Set the destination to the NPC.
-            aiMovement.SetDestination(this, selectedCell.gridCell);
-        }
-    }
+    //void RayCastAndSetDestination()
+    //{
+    //    Vector2 rayPos = new Vector2(
+    //        Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+    //        Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+    //    RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+
+    //    if (hit)
+    //    {
+    //        GameObject obj = hit.transform.gameObject;
+    //        GridCellVisualize selectedCell = obj.GetComponent<GridCellVisualize>();
+    //        if (selectedCell == null) return;
+
+    //        Vector3 pos = aiDestination.position;
+    //        pos.x = selectedCell.gridCell.Value.x;
+    //        pos.y = selectedCell.gridCell.Value.y;
+    //        aiDestination.position = pos;
+
+    //        // Set the destination to the NPC.
+    //        aiMovement.SetDestination(this, selectedCell.gridCell);
+    //    }
+    //}
 
     // Construct a grid with the max cols and rows.
     protected void Construct(int numCol, int numRow)
-    {
+    {       
         maxCol = numCol;
         maxRow = numRow;
 
         indices = new Vector2Int[maxCol, maxRow];
         gridCellGameObjects = new GameObject[maxCol, maxRow];
-        gridCells = new GridCell[maxCol, maxRow];
+        gridCellArray = new GridCell[maxCol, maxRow];
 
         // create all the grid cells (Index data) with default values.
         // also create the grid cell game ibjects from the prefab.
@@ -152,17 +160,37 @@ public class GridVisualize : MonoBehaviour
                 gridCellGameObjects[i, j].name = "Cell_" + i + "_" + j;
 
                 // create the GridCells
-                gridCells[i, j] = new GridCell(this, indices[i, j]);
+                gridCellArray[i, j] = new GridCell(this, indices[i, j]);
+
+                bool randomBool = (Random.value > 0.1f);
+
+                gridCellArray[i, j].IsWalkable = randomBool;
+
+                if (gridCellArray[i, j].IsWalkable == false)
+                {
+                    GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
+                    selectedCell.SetInnerColor(unwalkableCell);
+                }
 
                 // set a reference to the GridCellVisualize
                 GridCellVisualize gridCellVisualize =
                   gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
+
                 if (gridCellVisualize != null)
                 {
-                    gridCellVisualize.gridCell = gridCells[i, j];
-                }
+                    gridCellVisualize.gridCell = gridCellArray[i, j];
+                }               
             }
         }
+
+        gridCellArray[0, 0].IsWalkable = true;
+        gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
+
+        GridCellVisualize aiCell1 = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
+        aiCell1.SetInnerColor(walkableCell);
+
+        GridCellVisualize aiCell2 = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
+        aiCell2.SetInnerColor(walkableCell);
     }
 
     // get neighbour cells for a given cell.
@@ -179,9 +207,9 @@ public class GridVisualize : MonoBehaviour
             int i = x;
             int j = y + 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check top-right
@@ -190,9 +218,9 @@ public class GridVisualize : MonoBehaviour
             int i = x + 1;
             int j = y + 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check right
@@ -201,9 +229,9 @@ public class GridVisualize : MonoBehaviour
             int i = x + 1;
             int j = y;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check right-down
@@ -212,9 +240,9 @@ public class GridVisualize : MonoBehaviour
             int i = x + 1;
             int j = y - 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check down
@@ -223,9 +251,9 @@ public class GridVisualize : MonoBehaviour
             int i = x;
             int j = y - 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check down-left
@@ -234,9 +262,9 @@ public class GridVisualize : MonoBehaviour
             int i = x - 1;
             int j = y - 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check left
@@ -247,9 +275,9 @@ public class GridVisualize : MonoBehaviour
 
             Vector2Int v = indices[i, j];
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
         // Check left-top
@@ -258,9 +286,9 @@ public class GridVisualize : MonoBehaviour
             int i = x - 1;
             int j = y + 1;
 
-            if (gridCells[i, j].IsWalkable)
+            if (gridCellArray[i, j].IsWalkable)
             {
-                neighbours.Add(gridCells[i, j]);
+                neighbours.Add(gridCellArray[i, j]);
             }
         }
 
@@ -295,7 +323,7 @@ public class GridVisualize : MonoBehaviour
     {
         if (x >= 0 && x < maxCol && y >= 0 && y < maxRow)
         {
-            return gridCells[x, y];
+            return gridCellArray[x, y];
         }
         return null;
     }

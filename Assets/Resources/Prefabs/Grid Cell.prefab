@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7025602442517187111}
   - component: {fileID: 7938126302689918268}
-  - component: {fileID: 3320241090045873042}
+  - component: {fileID: 1511554248705591854}
   m_Layer: 0
   m_Name: Grid Cell
   m_TagString: Untagged
@@ -229,7 +229,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3320241090045873042
+--- !u!114 &1511554248705591854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7025602442517187110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f45e12effe851b14e9283ce551b4d327, type: 3}
+  m_Script: {fileID: 11500000, guid: f2be01a8c46d7614d91f2f49078a6aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InnerSprite: {fileID: 7025602441670941834}

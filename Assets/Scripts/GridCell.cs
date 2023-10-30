@@ -16,7 +16,7 @@ public class GridCell : Node<Vector2Int>
 
     // Keep a reference to the grid so that 
     // we can find the neighbours.
-    private GridVisualize gridVisualize;    
+    private GridVisualize gridVisualize;
 
     // construct the node with the grid and the location.
     public GridCell(GridVisualize gridMap, Vector2Int value)
@@ -34,5 +34,5 @@ public class GridCell : Node<Vector2Int>
     public override List<Node<Vector2Int>> GetNeighbours()
     {
         return gridVisualize.GetNeighbourCells(this);
-    }   
+    }
 }
