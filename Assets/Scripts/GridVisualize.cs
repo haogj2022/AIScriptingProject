@@ -32,6 +32,9 @@ public class GridVisualize : MonoBehaviour
     public AIMovement ai1;
     public AIMovement ai2;
 
+    int randomCellCol;
+    int randomCellRow;
+
     private void Start()
     {
         int randomCol = Random.Range(10, 50);
@@ -48,16 +51,26 @@ public class GridVisualize : MonoBehaviour
 
         // Reset the camera to a proper size and position.
         ResetCamera();
+
+        StartCoroutine(NewPos());
     }
 
     void ResetCamera()
     {
         Camera.main.orthographicSize = maxRow / 2.0f + 1.0f;
-        Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow);
+        Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow - 2.0f);
     }
 
     private void Update()
-    {
+    {       
+        if (ai1.transform.position.x == randomCellCol && ai1.transform.position.y == randomCellRow)
+        {
+            randomCellCol = Random.Range(0, maxCol - 1);
+            randomCellRow = Random.Range(0, maxRow - 1);
+
+            ai1.SetDestination(this, gridCellArray[randomCellCol, randomCellRow]);
+        }
+
         //if (Input.GetMouseButtonDown(0))
         //{
         //    RayCastAndToggleWalkable();
@@ -67,6 +80,13 @@ public class GridVisualize : MonoBehaviour
         //{
         //    RayCastAndSetDestination();
         //}
+    }
+
+    IEnumerator NewPos()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        ai1.SetDestination(this, gridCellArray[randomCellCol, randomCellRow]);             
     }
 
     //// toggling of walkable/non-walkable cells.
@@ -164,13 +184,13 @@ public class GridVisualize : MonoBehaviour
 
                 bool randomBool = (Random.value > 0.1f);
 
-                gridCellArray[i, j].IsWalkable = randomBool;
+                gridCellArray[i, j].IsWalkable = randomBool;                
 
                 if (gridCellArray[i, j].IsWalkable == false)
                 {
                     GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
                     selectedCell.SetInnerColor(unwalkableCell);
-                }
+                }               
 
                 // set a reference to the GridCellVisualize
                 GridCellVisualize gridCellVisualize =
