@@ -28,31 +28,28 @@ public class GridVisualize : MonoBehaviour
     private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
     private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 
-    //public Transform aiDestination;
-    public AIMovement ai1;
-    public AIMovement ai2;
-
-    int randomCellCol;
-    int randomCellRow;
+    // public Transform aiDestination;
+    public AIMovement policeAI;
+    public AIMovement criminalAI;
 
     private void Start()
     {
+        // Define the size of the grid
         int randomCol = Random.Range(10, 50);
         int randomRow = Random.Range(10, 50);
 
         maxCol = randomCol;
         maxRow = randomRow;
 
-        ai1.transform.position = Vector2.zero;
-        ai2.transform.position = new Vector2(maxCol - 1, maxRow - 1);
+        // Set the default position of the AI
+        policeAI.transform.position = Vector2.zero;
+        criminalAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
 
         // Construct the grid and the cell game objects.
         Construct(maxCol, maxRow);
 
         // Reset the camera to a proper size and position.
         ResetCamera();
-
-        StartCoroutine(NewPos());
     }
 
     void ResetCamera()
@@ -61,33 +58,18 @@ public class GridVisualize : MonoBehaviour
         Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow - 2.0f);
     }
 
-    private void Update()
-    {       
-        if (ai1.transform.position.x == randomCellCol && ai1.transform.position.y == randomCellRow)
-        {
-            randomCellCol = Random.Range(0, maxCol - 1);
-            randomCellRow = Random.Range(0, maxRow - 1);
+    //private void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        RayCastAndToggleWalkable();
+    //    }
 
-            ai1.SetDestination(this, gridCellArray[randomCellCol, randomCellRow]);
-        }
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    RayCastAndToggleWalkable();
-        //}
-
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    RayCastAndSetDestination();
-        //}
-    }
-
-    IEnumerator NewPos()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        ai1.SetDestination(this, gridCellArray[randomCellCol, randomCellRow]);             
-    }
+    //    if (Input.GetMouseButtonDown(1))
+    //    {
+    //        RayCastAndSetDestination();
+    //    }
+    //}
 
     //// toggling of walkable/non-walkable cells.
     //public void RayCastAndToggleWalkable()
@@ -182,10 +164,10 @@ public class GridVisualize : MonoBehaviour
                 // create the GridCells
                 gridCellArray[i, j] = new GridCell(this, indices[i, j]);
 
+                // set a number of grid cell to unwalkable
                 bool randomBool = (Random.value > 0.1f);
-
                 gridCellArray[i, j].IsWalkable = randomBool;                
-
+                
                 if (gridCellArray[i, j].IsWalkable == false)
                 {
                     GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
@@ -203,14 +185,15 @@ public class GridVisualize : MonoBehaviour
             }
         }
 
+        // set the specific grid cell to walkable
         gridCellArray[0, 0].IsWalkable = true;
         gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
 
-        GridCellVisualize aiCell1 = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
-        aiCell1.SetInnerColor(walkableCell);
+        GridCellVisualize policeAICell = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
+        policeAICell.SetInnerColor(walkableCell);
 
-        GridCellVisualize aiCell2 = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        aiCell2.SetInnerColor(walkableCell);
+        GridCellVisualize criminalAICell = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
+        criminalAICell.SetInnerColor(walkableCell);
     }
 
     // get neighbour cells for a given cell.
