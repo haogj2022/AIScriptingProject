@@ -55,7 +55,19 @@ public class GridVisualize : MonoBehaviour
     void ResetCamera()
     {
         Camera.main.orthographicSize = maxRow / 2.0f + 1.0f;
-        Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow - 2.0f);
+
+        if (maxCol > maxRow)
+        {
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxCol);
+        }       
+        else if (maxCol < maxRow)
+        {
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow);
+        }    
+        else
+        {
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -(maxCol + maxRow) / 2.0f);
+        }        
     }
 
     //private void Update()
