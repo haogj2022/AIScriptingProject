@@ -292,9 +292,10 @@ GameObject:
   m_Component:
   - component: {fileID: 390715571}
   - component: {fileID: 390715572}
+  - component: {fileID: 390715573}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,6 +367,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &390715573
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390715570}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997
 --- !u!1 &547857283
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +526,7 @@ MonoBehaviour:
   maxCol: 0
   maxRow: 0
   gridCell: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+  coin: {fileID: 6439595940165326873, guid: ffa10469976b9a540a7251f85b0388a4, type: 3}
   seekerAI: {fileID: 1126711813}
   hiderAI: {fileID: 1078660638}
   gridConstructed: 0
@@ -924,6 +942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027201364}
   - component: {fileID: 2027201365}
+  - component: {fileID: 2027201366}
   m_Layer: 0
   m_Name: Idle State
   m_TagString: Untagged
@@ -962,3 +981,19 @@ MonoBehaviour:
   chaseState: {fileID: 64131141}
   canSeeTheEnemy: 0
   isSeeker: 1
+--- !u!58 &2027201366
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027201363}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4.5

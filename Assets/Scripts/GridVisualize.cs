@@ -16,6 +16,9 @@ public class GridVisualize : MonoBehaviour
     [SerializeField]
     GameObject gridCell;
 
+    [SerializeField]
+    GameObject coin;
+
     public GameObject[,] gridCellGameObjects;
 
     // the 2d array of Vecto2Int.
@@ -39,8 +42,8 @@ public class GridVisualize : MonoBehaviour
     private void Start()
     {
         // Define the size of the grid
-        int randomCol = Random.Range(10, 50);
-        int randomRow = Random.Range(10, 50);
+        int randomCol = Random.Range(10, 20);
+        int randomRow = Random.Range(10, 20);
 
         maxCol = randomCol;
         maxRow = randomRow;
@@ -55,7 +58,7 @@ public class GridVisualize : MonoBehaviour
         // Reset the camera to a proper size and position.
         ResetCamera();
 
-        gridConstructed = true;
+        gridConstructed = true;        
     }
 
     void ResetCamera()
@@ -165,7 +168,7 @@ public class GridVisualize : MonoBehaviour
                   gridCell,
                   new Vector3(i, j, 0.0f),
                   Quaternion.identity);
-
+               
                 // Set the parent for the grid cell to this transform.
                 gridCellGameObjects[i, j].transform.SetParent(transform);
 
@@ -177,13 +180,13 @@ public class GridVisualize : MonoBehaviour
 
                 // set a number of grid cell to unwalkable
                 bool randomBool = (Random.value > 0.1f);
-                gridCellArray[i, j].IsWalkable = randomBool;                
-                
+                gridCellArray[i, j].IsWalkable = randomBool;                               
+
                 if (gridCellArray[i, j].IsWalkable == false)
                 {
                     GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
                     selectedCell.SetInnerColor(unwalkableCell);
-                }               
+                }
 
                 // set a reference to the GridCellVisualize
                 GridCellVisualize gridCellVisualize =
@@ -204,7 +207,18 @@ public class GridVisualize : MonoBehaviour
         policeAICell.SetInnerColor(walkableCell);
 
         GridCellVisualize criminalAICell = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        criminalAICell.SetInnerColor(walkableCell);       
+        criminalAICell.SetInnerColor(walkableCell);
+
+        int randomCol = Random.Range(0, maxCol - 1);
+        int randomRow = Random.Range(0, maxRow - 1);
+
+        if (gridCellArray[randomCol, randomRow].IsWalkable)
+        {
+            gridCellGameObjects[randomCol, randomRow] = Instantiate(
+            coin,
+            new Vector3(randomCol, randomRow, 0.0f),
+            Quaternion.identity);
+        }        
     }
 
     // get neighbour cells for a given cell.
