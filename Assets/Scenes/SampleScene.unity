@@ -132,9 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 22997507}
-  - component: {fileID: 22997508}
   m_Layer: 0
-  m_Name: Attack State
+  m_Name: Caught State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,20 +154,6 @@ Transform:
   m_Father: {fileID: 549388443}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &22997508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22997506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524cf764241b94043bd534136efb189c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleState: {fileID: 547857285}
-  haveAttacked: 0
 --- !u!1 &64131139
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,10 +163,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 64131140}
+  - component: {fileID: 64131142}
+  - component: {fileID: 64131143}
   - component: {fileID: 64131141}
   m_Layer: 0
   m_Name: Chase State
-  m_TagString: Untagged
+  m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,8 +200,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37104f6f39bcd374f93dfdda36b2a5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackState: {fileID: 1208296969}
-  isInAttackRange: 0
+  gridVisualize: {fileID: 637292681}
+  catchState: {fileID: 1208296969}
+  canCatchHider: 0
+--- !u!58 &64131142
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64131139}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.5
+--- !u!50 &64131143
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64131139}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &369738729
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,9 +318,10 @@ GameObject:
   - component: {fileID: 390715571}
   - component: {fileID: 390715572}
   - component: {fileID: 390715573}
+  - component: {fileID: 390715574}
   m_Layer: 0
   m_Name: Body
-  m_TagString: AI
+  m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,8 +335,8 @@ Transform:
   m_GameObject: {fileID: 390715570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1126711812}
   m_RootOrder: -1
@@ -355,7 +381,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
@@ -383,6 +409,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49999997
+--- !u!50 &390715574
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390715570}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &547857283
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,9 +439,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 547857284}
-  - component: {fileID: 547857285}
   m_Layer: 0
-  m_Name: Idle State
+  m_Name: Hide State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,22 +461,6 @@ Transform:
   m_Father: {fileID: 549388443}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &547857285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 547857283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d3d7ab4a5ed024bbd9fbf72824578c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridVisualize: {fileID: 637292681}
-  chaseState: {fileID: 1375885498}
-  canSeeTheEnemy: 0
-  isSeeker: 0
 --- !u!1 &549388442
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e50d479d2353d45b4dd936d55f1a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 547857285}
+  currentState: {fileID: 1375885498}
 --- !u!1 &637292677
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +559,6 @@ MonoBehaviour:
   coin: {fileID: 6439595940165326873, guid: ffa10469976b9a540a7251f85b0388a4, type: 3}
   seekerAI: {fileID: 1126711813}
   hiderAI: {fileID: 1078660638}
-  gridConstructed: 0
 --- !u!1 &661232830
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +712,7 @@ GameObject:
   - component: {fileID: 1208296968}
   - component: {fileID: 1208296969}
   m_Layer: 0
-  m_Name: Attack State
+  m_Name: Catch State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,11 +742,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1208296967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524cf764241b94043bd534136efb189c, type: 3}
+  m_Script: {fileID: 11500000, guid: ad70bfb8f6821834b8dc17a694d3f753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleState: {fileID: 2027201365}
-  haveAttacked: 0
 --- !u!1 &1209434336
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,10 +838,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375885497}
+  - component: {fileID: 1375885499}
+  - component: {fileID: 1375885500}
   - component: {fileID: 1375885498}
   m_Layer: 0
-  m_Name: Chase State
-  m_TagString: Untagged
+  m_Name: Flee State
+  m_TagString: Hider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -843,11 +872,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 1375885496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37104f6f39bcd374f93dfdda36b2a5bf, type: 3}
+  m_Script: {fileID: 11500000, guid: b7da6589719c60c488f8382d59e00494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackState: {fileID: 22997508}
-  isInAttackRange: 0
+  gridVisualize: {fileID: 637292681}
+--- !u!58 &1375885499
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375885496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.5
+--- !u!50 &1375885500
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375885496}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1895212117
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,9 +923,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1895212118}
   - component: {fileID: 1895212119}
+  - component: {fileID: 1895212120}
+  - component: {fileID: 1895212121}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Hider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -874,8 +941,8 @@ Transform:
   m_GameObject: {fileID: 1895212117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1078660637}
   m_RootOrder: -1
@@ -932,6 +999,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1895212120
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895212117}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997
+--- !u!50 &1895212121
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895212117}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2027201363
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,11 +1045,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2027201364}
-  - component: {fileID: 2027201365}
   - component: {fileID: 2027201366}
+  - component: {fileID: 2027201367}
+  - component: {fileID: 2027201365}
   m_Layer: 0
-  m_Name: Idle State
-  m_TagString: Untagged
+  m_Name: Seek State
+  m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -979,8 +1084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 637292681}
   chaseState: {fileID: 64131141}
-  canSeeTheEnemy: 0
-  isSeeker: 1
+  canSeeHider: 0
 --- !u!58 &2027201366
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -996,4 +1100,25 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.5
+  m_Radius: 9.5
+--- !u!50 &2027201367
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027201363}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -26,7 +26,7 @@ public class GridVisualize : MonoBehaviour
     protected Vector2Int[,] indices;
 
     // the 2d array of the GridCell.
-    public GridCell[,] gridCellArray;
+    protected GridCell[,] gridCellArray;
 
     private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
     private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
@@ -37,9 +37,7 @@ public class GridVisualize : MonoBehaviour
     public AIMovement seekerAI;
     public AIMovement hiderAI;
 
-    public bool gridConstructed = false;
-
-    private void Start()
+    private void Awake()
     {
         // Define the size of the grid
         int randomCol = Random.Range(10, 20);
@@ -56,9 +54,7 @@ public class GridVisualize : MonoBehaviour
         Construct(maxCol, maxRow);
 
         // Reset the camera to a proper size and position.
-        ResetCamera();
-
-        gridConstructed = true;        
+        ResetCamera();       
     }
 
     void ResetCamera()
@@ -207,18 +203,7 @@ public class GridVisualize : MonoBehaviour
         policeAICell.SetInnerColor(walkableCell);
 
         GridCellVisualize criminalAICell = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        criminalAICell.SetInnerColor(walkableCell);
-
-        int randomCol = Random.Range(0, maxCol - 1);
-        int randomRow = Random.Range(0, maxRow - 1);
-
-        if (gridCellArray[randomCol, randomRow].IsWalkable)
-        {
-            gridCellGameObjects[randomCol, randomRow] = Instantiate(
-            coin,
-            new Vector3(randomCol, randomRow, 0.0f),
-            Quaternion.identity);
-        }        
+        criminalAICell.SetInnerColor(walkableCell);     
     }
 
     // get neighbour cells for a given cell.

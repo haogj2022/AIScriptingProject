@@ -4,12 +4,52 @@ using UnityEngine;
 
 public class ChaseState : State
 {
-    public AttackState attackState;
-    public bool isInAttackRange;
+    public GridVisualize gridVisualize;
+    public CatchState catchState;
+    public bool canCatchHider;
+
+    int hiderCol;
+    int hiderRow;
 
     public override State RunCurrentState()
     {
-        if (isInAttackRange) return attackState;
+        if (canCatchHider) return catchState;
         else return this;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Hider")
+        {
+            if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
+            {
+                Debug.Log("Seeker found Hider at " + hiderCol + ", " + hiderRow);
+                StartCoroutine(ChaseHider());
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Hider")
+        {
+            if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
+            {
+                Debug.Log("Hider has fleed away. Seeker chased Hider");
+                StartCoroutine(ChaseHider());
+            }
+        }
+    }
+
+    private void Update()
+    {
+        hiderCol = (int)gridVisualize.hiderAI.transform.position.x;
+        hiderRow = (int)gridVisualize.hiderAI.transform.position.y;
+    }
+
+    IEnumerator ChaseHider()
+    {
+        yield return new WaitForSeconds(1);
+        gridVisualize.seekerAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
     }
 }

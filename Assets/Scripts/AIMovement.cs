@@ -6,7 +6,7 @@ using GameAI.PathFinding;
 public class AIMovement : MonoBehaviour
 {
     public float Speed = 5.0f;
-    public Queue<Vector2> aiWayPoints = new Queue<Vector2>();
+    Queue<Vector2> aiWayPoints = new Queue<Vector2>();
 
     PathFinder<Vector2Int> aiPathFinder = new AStarPathFinder<Vector2Int>();
 
@@ -122,5 +122,6 @@ public class AIMovement : MonoBehaviour
     void OnFailurePathFinding()
     {
         Debug.Log("Error: Cannot find path");
+        return;
     }
 }
