@@ -354,7 +354,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
@@ -410,8 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3d7ab4a5ed024bbd9fbf72824578c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridVisualize: {fileID: 637292681}
   chaseState: {fileID: 1375885498}
   canSeeTheEnemy: 0
+  isSeeker: 0
 --- !u!1 &549388442
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,9 +506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e559708068877479cb544f2f44ae31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxCol: 0
+  maxRow: 0
   gridCell: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
-  policeAI: {fileID: 1126711813}
-  criminalAI: {fileID: 1078660638}
+  seekerAI: {fileID: 1126711813}
+  hiderAI: {fileID: 1078660638}
+  gridConstructed: 0
 --- !u!1 &661232830
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +571,7 @@ GameObject:
   - component: {fileID: 1078660637}
   - component: {fileID: 1078660638}
   m_Layer: 0
-  m_Name: Criminal AI
+  m_Name: Hider AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,7 +618,7 @@ GameObject:
   - component: {fileID: 1126711812}
   - component: {fileID: 1126711813}
   m_Layer: 0
-  m_Name: Police AI
+  m_Name: Seeker AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +902,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -953,5 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3d7ab4a5ed024bbd9fbf72824578c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridVisualize: {fileID: 637292681}
   chaseState: {fileID: 64131141}
   canSeeTheEnemy: 0
+  isSeeker: 1

@@ -6,9 +6,9 @@ using GameAI.PathFinding;
 public class GridVisualize : MonoBehaviour
 {
     // the max number of columns in the grid.
-    private int maxCol;
+    public int maxCol;
     // the max number of rows in the grid
-    private int maxRow;
+    public int maxRow;
 
     // The prefab for representing a grid cell. We will 
     // use the prefab to show/visualize the status of the cell
@@ -16,21 +16,25 @@ public class GridVisualize : MonoBehaviour
     [SerializeField]
     GameObject gridCell;
 
-    GameObject[,] gridCellGameObjects;
+    public GameObject[,] gridCellGameObjects;
 
     // the 2d array of Vecto2Int.
     // This structure stores the 2d indices of the grid cells.
     protected Vector2Int[,] indices;
 
     // the 2d array of the GridCell.
-    protected GridCell[,] gridCellArray;
+    public GridCell[,] gridCellArray;
 
     private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
     private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 
-    // public Transform aiDestination;
-    public AIMovement policeAI;
-    public AIMovement criminalAI;
+    //public Transform aiDestination;
+    //public AIMovement aiMovement;
+
+    public AIMovement seekerAI;
+    public AIMovement hiderAI;
+
+    public bool gridConstructed = false;
 
     private void Start()
     {
@@ -42,32 +46,27 @@ public class GridVisualize : MonoBehaviour
         maxRow = randomRow;
 
         // Set the default position of the AI
-        policeAI.transform.position = Vector2.zero;
-        criminalAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
+        seekerAI.transform.position = Vector2.zero;
+        hiderAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
 
         // Construct the grid and the cell game objects.
         Construct(maxCol, maxRow);
 
         // Reset the camera to a proper size and position.
         ResetCamera();
+
+        gridConstructed = true;
     }
 
     void ResetCamera()
     {
         Camera.main.orthographicSize = maxRow / 2.0f + 1.0f;
-
         if (maxCol > maxRow)
-        {
-            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxCol);
-        }       
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxCol + 2.0f);   
         else if (maxCol < maxRow)
-        {
-            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow);
-        }    
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -maxRow + 2.0f);
         else
-        {
-            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -(maxCol + maxRow) / 2.0f);
-        }        
+            Camera.main.transform.position = new Vector3(maxCol / 2.0f - 0.5f, maxRow / 2.0f - 0.5f, -(maxCol + maxRow) / 2.0f);   
     }
 
     //private void Update()
@@ -197,7 +196,7 @@ public class GridVisualize : MonoBehaviour
             }
         }
 
-        // set the specific grid cell to walkable
+        // set the default grid cell of the AI to walkable
         gridCellArray[0, 0].IsWalkable = true;
         gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
 
@@ -205,7 +204,7 @@ public class GridVisualize : MonoBehaviour
         policeAICell.SetInnerColor(walkableCell);
 
         GridCellVisualize criminalAICell = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        criminalAICell.SetInnerColor(walkableCell);
+        criminalAICell.SetInnerColor(walkableCell);       
     }
 
     // get neighbour cells for a given cell.
