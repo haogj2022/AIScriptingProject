@@ -20,24 +20,36 @@ public class FleeState : State
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Seeker")
-        {
-            randomCol = Random.Range(0, gridVisualize.maxCol - 1);
-            randomRow = Random.Range(0, gridVisualize.maxRow - 1);
-
-            seekerCol = (int)gridVisualize.seekerAI.transform.position.x;
-            seekerRow = (int)gridVisualize.seekerAI.transform.position.y;
-            Debug.Log("Hider saw Seeker at " + seekerCol + ", " + seekerRow);
-                
-            gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(randomCol, randomRow));           
+        {                     
+            if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
+            {
+                //Debug.Log("Hider saw Seeker at " + seekerCol + ", " + seekerRow);
+                FleeFromSeeker();
+            }
         }
     }
+  
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Seeker")
+    //    {
+    //        if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
+    //        {
+    //            StartCoroutine(FleeFromSeeker());
+    //        }
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.tag == "Seeker")
-        {
-            randomCol = Random.Range(0, gridVisualize.maxCol - 1);
-            randomRow = Random.Range(0, gridVisualize.maxRow - 1);
-        }
+        seekerCol = (int)gridVisualize.seekerAI.transform.position.x;
+        seekerRow = (int)gridVisualize.seekerAI.transform.position.y;
+    }
+
+    void FleeFromSeeker()
+    {
+        randomCol = Random.Range(0, gridVisualize.maxCol - 1);
+        randomRow = Random.Range(0, gridVisualize.maxRow - 1);
+        gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(randomCol, randomRow));
     }
 }

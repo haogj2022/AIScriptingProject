@@ -10,6 +10,11 @@ public class AIMovement : MonoBehaviour
 
     PathFinder<Vector2Int> aiPathFinder = new AStarPathFinder<Vector2Int>();
 
+    public PathFinderStatus GetStatus()
+    {
+        return aiPathFinder.Status;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +127,5 @@ public class AIMovement : MonoBehaviour
     void OnFailurePathFinding()
     {
         Debug.Log("Error: Cannot find path");
-        return;
     }
 }
