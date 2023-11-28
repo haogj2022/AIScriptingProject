@@ -21,11 +21,8 @@ public class ChaseState : State
     {
         if (collision.tag == "Hider")
         {
-            if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
-            {
-                Debug.Log("Seeker found Hider at " + hiderCol + ", " + hiderRow);
-                StartCoroutine(ChaseHider());
-            }
+            Debug.Log("Seeker found Hider at " + hiderCol + ", " + hiderRow);
+            ChaseHider();            
         }
     }
 
@@ -33,23 +30,23 @@ public class ChaseState : State
     {
         if (collision.tag == "Hider")
         {
-            if (gridVisualize.seekerAI.transform.position != gridVisualize.hiderAI.transform.position)
-            {
-                Debug.Log("Hider has fleed away. Seeker chased Hider");
-                StartCoroutine(ChaseHider());
-            }
+            Debug.Log("Hider has fleed away. Seeker chased Hider");
+            ChaseHider();
         }
     }
 
     private void Update()
+    {        
+        if (gridVisualize.seekerAI.transform.position == gridVisualize.hiderAI.transform.position)
+        {
+            canCatchHider = true;
+        }
+    }
+
+    void ChaseHider()
     {
         hiderCol = (int)gridVisualize.hiderAI.transform.position.x;
         hiderRow = (int)gridVisualize.hiderAI.transform.position.y;
-    }
-
-    IEnumerator ChaseHider()
-    {
-        yield return new WaitForSeconds(1);
         gridVisualize.seekerAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
     }
 }
