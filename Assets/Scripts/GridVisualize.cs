@@ -36,6 +36,7 @@ public class GridVisualize : MonoBehaviour
 
     public AIMovement seekerAI;
     public AIMovement hiderAI;
+    public GameObject cheese;
 
     private void Awake()
     {
@@ -175,13 +176,20 @@ public class GridVisualize : MonoBehaviour
                 gridCellArray[i, j] = new GridCell(this, indices[i, j]);
 
                 // set a number of grid cell to unwalkable
-                bool randomBool = (Random.value > 0.1f);
-                gridCellArray[i, j].IsWalkable = randomBool;                               
+                bool walkableCell = Random.value > 0.1f;
+                gridCellArray[i, j].IsWalkable = walkableCell;                               
+
+                bool spawnCheese = Random.value > 0.9f;
 
                 if (gridCellArray[i, j].IsWalkable == false)
                 {
                     GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
                     selectedCell.SetInnerColor(unwalkableCell);
+                }
+
+                if (gridCellArray[i, j].IsWalkable == true && spawnCheese)
+                {
+                    Instantiate(cheese, gridCellGameObjects[i, j].transform.position, Quaternion.identity);
                 }
 
                 // set a reference to the GridCellVisualize
@@ -195,15 +203,17 @@ public class GridVisualize : MonoBehaviour
             }
         }
 
-        // set the default grid cell of the AI to walkable
-        gridCellArray[0, 0].IsWalkable = true;
+        // set the default grid cell to walkable
+        gridCellArray[0, 0].IsWalkable = true;       
         gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
+        gridCellArray[0, maxRow - 1].IsWalkable = true;
+        gridCellArray[maxCol - 1, 0].IsWalkable = true;
 
-        GridCellVisualize policeAICell = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
-        policeAICell.SetInnerColor(walkableCell);
+        GridCellVisualize seekerAI = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
+        seekerAI.SetInnerColor(walkableCell);
 
-        GridCellVisualize criminalAICell = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        criminalAICell.SetInnerColor(walkableCell);     
+        GridCellVisualize hiderAI = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
+        hiderAI.SetInnerColor(walkableCell);        
     }
 
     // get neighbour cells for a given cell.
@@ -237,7 +247,7 @@ public class GridVisualize : MonoBehaviour
             }
         }
         // Check right
-        if (x < maxRow - 1)
+        if (x < maxCol - 1)
         {
             int i = x + 1;
             int j = y;
@@ -248,7 +258,7 @@ public class GridVisualize : MonoBehaviour
             }
         }
         // Check right-down
-        if (x < maxRow - 1 && y > 0)
+        if (x < maxCol - 1 && y > 0)
         {
             int i = x + 1;
             int j = y - 1;

@@ -20,8 +20,8 @@ public class ChaseState : State
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Hider")
-        {
-            Debug.Log("Seeker found Hider at " + hiderCol + ", " + hiderRow);
+        {            
+            //Debug.Log("Seeker found Hider at " + hiderCol + ", " + hiderRow);
             ChaseHider();            
         }
     }
@@ -30,16 +30,23 @@ public class ChaseState : State
     {
         if (collision.tag == "Hider")
         {
-            Debug.Log("Hider has fleed away. Seeker chased Hider");
+            //Debug.Log("Hider has fleed away. Seeker chased Hider");            
             ChaseHider();
         }
     }
 
     private void Update()
     {        
+        // seeker and hider are at the same position
         if (gridVisualize.seekerAI.transform.position == gridVisualize.hiderAI.transform.position)
         {
             canCatchHider = true;
+        }
+
+        // seeker reaches the last position of hider
+        if (gridVisualize.seekerAI.transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position)
+        {
+            ChaseHider();
         }
     }
 

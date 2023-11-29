@@ -20,16 +20,31 @@ public class FleeState : State
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Seeker")
-        {                     
-            FleeFromSeeker();           
+        {
+            FleeFromSeeker();
+        }       
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Seeker")
+        {
+            FleeFromSeeker();
         }
     }
 
     private void Update()
     {
+        // seeker and hider are at the same position
         if (gridVisualize.seekerAI.transform.position == gridVisualize.hiderAI.transform.position)
         {
             gotCaught = true;
+        }
+
+        // hider reaches the last hiding spot
+        if (gridVisualize.hiderAI.transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position)
+        {
+            FleeFromSeeker();
         }
     }
 

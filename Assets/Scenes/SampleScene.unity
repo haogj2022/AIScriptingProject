@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f65371528bc654b9053a1832b6b6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caughtBySeeker: 0
 --- !u!1 &64131139
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ GameObject:
   - component: {fileID: 64131141}
   m_Layer: 0
   m_Name: Chase State
-  m_TagString: Seeker
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +232,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 4.5
 --- !u!50 &64131143
 Rigidbody2D:
   serializedVersion: 4
@@ -457,7 +458,7 @@ GameObject:
   - component: {fileID: 547857285}
   m_Layer: 0
   m_Name: Hide State
-  m_TagString: Untagged
+  m_TagString: Hider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -627,6 +628,7 @@ MonoBehaviour:
   coin: {fileID: 6439595940165326873, guid: ffa10469976b9a540a7251f85b0388a4, type: 3}
   seekerAI: {fileID: 1126711813}
   hiderAI: {fileID: 1078660638}
+  cheese: {fileID: 2255918464852477458, guid: dc5597d16f9ce0e4eb5afc9ff6ded516, type: 3}
 --- !u!1 &661232830
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +913,7 @@ GameObject:
   - component: {fileID: 1375885498}
   m_Layer: 0
   m_Name: Flee State
-  m_TagString: Hider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -997,7 +999,7 @@ GameObject:
   - component: {fileID: 1895212121}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Hider
+  m_TagString: Mouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1170,7 +1172,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 9.5
+  m_Radius: 4.5
 --- !u!50 &2027201367
 Rigidbody2D:
   serializedVersion: 4

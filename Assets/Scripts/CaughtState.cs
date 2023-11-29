@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CaughtState : State
 {
+    public bool caughtBySeeker;
+
     public override State RunCurrentState()
     {
+        caughtBySeeker = true;
         return this;
     }
 }

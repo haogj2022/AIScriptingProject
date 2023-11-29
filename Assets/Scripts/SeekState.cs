@@ -26,10 +26,10 @@ public class SeekState : State
     {
         if (gridVisualize.seekerAI.transform.position == gridVisualize.gridCellGameObjects[seekerCol, seekerRow].transform.position && !canSeeHider)
         {
-            Debug.Log("Seeker position is " + seekerCol + ", " + seekerRow);
+            //Debug.Log("Seeker position is " + seekerCol + ", " + seekerRow);
             seekerCol = Random.Range(0, gridVisualize.maxCol - 1);
             seekerRow = Random.Range(0, gridVisualize.maxRow - 1);
-            Debug.Log("Seeker destination is " + seekerCol + ", " + seekerRow);
+            //Debug.Log("Seeker destination is " + seekerCol + ", " + seekerRow);
             NextDestination();
         }
     }
@@ -53,14 +53,14 @@ public class SeekState : State
 
     void RelocateDestination()
     {
-        Debug.Log("Seeker destination is unwalkable");
+        //Debug.Log("Seeker destination is unwalkable");
         seekerCol = Random.Range(0, gridVisualize.maxCol - 1);
         seekerRow = Random.Range(0, gridVisualize.maxRow - 1);
-        Debug.Log("Seeker destination changes to " + seekerCol + ", " + seekerRow);
+        //Debug.Log("Seeker destination changes to " + seekerCol + ", " + seekerRow);
         NextDestination();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Hider")
         {            

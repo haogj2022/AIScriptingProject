@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinRotation : MonoBehaviour
+public class Cheese : MonoBehaviour
 {
     private int speed = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "AI")
+        if (collision.tag == "Mouse")
         {
-            Debug.Log("Coin collected");
+            Debug.Log("Cheese collected");
             gameObject.SetActive(false);
         }
     }
