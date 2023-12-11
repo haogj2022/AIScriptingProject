@@ -16,9 +16,6 @@ public class GridVisualize : MonoBehaviour
     [SerializeField]
     GameObject gridCell;
 
-    [SerializeField]
-    GameObject coin;
-
     public GameObject[,] gridCellGameObjects;
 
     // the 2d array of Vecto2Int.
@@ -179,17 +176,10 @@ public class GridVisualize : MonoBehaviour
                 bool walkableCell = Random.value > 0.1f;
                 gridCellArray[i, j].IsWalkable = walkableCell;                               
 
-                bool spawnCheese = Random.value > 0.9f;
-
                 if (gridCellArray[i, j].IsWalkable == false)
                 {
                     GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
                     selectedCell.SetInnerColor(unwalkableCell);
-                }
-
-                if (gridCellArray[i, j].IsWalkable == true && spawnCheese)
-                {
-                    Instantiate(cheese, gridCellGameObjects[i, j].transform.position, Quaternion.identity);
                 }
 
                 // set a reference to the GridCellVisualize
@@ -203,8 +193,13 @@ public class GridVisualize : MonoBehaviour
             }
         }
 
-        // set the default grid cell to walkable
-        gridCellArray[0, 0].IsWalkable = true;       
+        SetWalkableCell();
+    }
+
+    void SetWalkableCell()
+    {
+        // set specific grid cells to walkable
+        gridCellArray[0, 0].IsWalkable = true;
         gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
         gridCellArray[0, maxRow - 1].IsWalkable = true;
         gridCellArray[maxCol - 1, 0].IsWalkable = true;
@@ -213,7 +208,16 @@ public class GridVisualize : MonoBehaviour
         seekerAI.SetInnerColor(walkableCell);
 
         GridCellVisualize hiderAI = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        hiderAI.SetInnerColor(walkableCell);        
+        hiderAI.SetInnerColor(walkableCell);
+
+        GridCellVisualize cheese1 = gridCellGameObjects[0, maxRow - 1].GetComponent<GridCellVisualize>();
+        cheese1.SetInnerColor(walkableCell);
+
+        GridCellVisualize cheese2 = gridCellGameObjects[maxCol - 1, 0].GetComponent<GridCellVisualize>();
+        cheese2.SetInnerColor(walkableCell);
+
+        Instantiate(cheese, new Vector3(0, maxRow - 1, 0.0f), Quaternion.identity);
+        Instantiate(cheese, new Vector3(maxCol - 1, 0, 0.0f), Quaternion.identity);
     }
 
     // get neighbour cells for a given cell.

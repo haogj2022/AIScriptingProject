@@ -5,15 +5,17 @@ using UnityEngine;
 public class FleeState : State
 {
     public GridVisualize gridVisualize;
-    public CaughtState caughtState;
-    public bool gotCaught;
+    public GetCheeseState getCheeseState;
+    public bool canSeeCheese;
 
     int hiderCol;
     int hiderRow;
 
+    bool gotCaught;
+
     public override State RunCurrentState()
     {
-        if (gotCaught) return caughtState;
+        if (canSeeCheese) return getCheeseState;
         else return this;
     }
 
@@ -23,6 +25,11 @@ public class FleeState : State
         {
             FleeFromSeeker();
         }       
+
+        if (collision.tag == "Cheese")
+        {
+            canSeeCheese = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -48,10 +55,13 @@ public class FleeState : State
         }
     }
 
-    void FleeFromSeeker()
+    public void FleeFromSeeker()
     {
-        hiderCol = Random.Range(0, gridVisualize.maxCol - 1);
-        hiderRow = Random.Range(0, gridVisualize.maxRow - 1);
-        gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
+        if (!gotCaught && !canSeeCheese)
+        {
+            hiderCol = Random.Range(0, gridVisualize.maxCol - 1);
+            hiderRow = Random.Range(0, gridVisualize.maxRow - 1);
+            gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
+        }        
     }
 }

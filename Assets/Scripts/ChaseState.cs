@@ -29,7 +29,7 @@ public class ChaseState : State
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Hider")
-        {
+        {           
             //Debug.Log("Hider has fleed away. Seeker chased Hider");            
             ChaseHider();
         }

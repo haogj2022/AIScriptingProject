@@ -10,10 +10,11 @@ public class CatchState : State
     {
         if (caughtHider)
         {
-            Debug.Log("Seeker caught Hider");
+            Debug.Log("Seeker caught Hider. Seeker won");
             caughtHider = false;
-        }     
-        
+        }
+
+        Time.timeScale = 0;
         return this;
     }
 

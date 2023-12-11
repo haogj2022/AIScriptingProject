@@ -132,9 +132,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 22997507}
+  - component: {fileID: 22997510}
+  - component: {fileID: 22997509}
   - component: {fileID: 22997508}
   m_Layer: 0
-  m_Name: Caught State
+  m_Name: Get Cheese State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +169,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f65371528bc654b9053a1832b6b6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caughtBySeeker: 0
+  gridVisualize: {fileID: 637292681}
+  fleeState: {fileID: 1375885498}
+  gotCheese: 0
+  numOfCheese: 0
+--- !u!50 &22997509
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22997506}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &22997510
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22997506}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 10
 --- !u!1 &64131139
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +274,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.5
+  m_Radius: 10
 --- !u!50 &64131143
 Rigidbody2D:
   serializedVersion: 4
@@ -335,7 +377,7 @@ GameObject:
   - component: {fileID: 390715574}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Seeker
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,7 +464,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.5
 --- !u!50 &390715574
 Rigidbody2D:
   serializedVersion: 4
@@ -529,7 +571,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 10
 --- !u!1 &549388442
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +667,6 @@ MonoBehaviour:
   maxCol: 0
   maxRow: 0
   gridCell: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
-  coin: {fileID: 6439595940165326873, guid: ffa10469976b9a540a7251f85b0388a4, type: 3}
   seekerAI: {fileID: 1126711813}
   hiderAI: {fileID: 1078660638}
   cheese: {fileID: 2255918464852477458, guid: dc5597d16f9ce0e4eb5afc9ff6ded516, type: 3}
@@ -723,7 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a534b3390cd5564c97b201ba14e30af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 6
 --- !u!1 &1126711810
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a534b3390cd5564c97b201ba14e30af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 8
 --- !u!1 &1208296967
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,8 +987,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 637292681}
-  caughtState: {fileID: 22997508}
-  gotCaught: 0
+  getCheeseState: {fileID: 22997508}
+  canSeeCheese: 0
 --- !u!58 &1375885499
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -963,7 +1004,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 10
 --- !u!50 &1375885500
 Rigidbody2D:
   serializedVersion: 4
@@ -1172,7 +1213,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.5
+  m_Radius: 10
 --- !u!50 &2027201367
 Rigidbody2D:
   serializedVersion: 4
