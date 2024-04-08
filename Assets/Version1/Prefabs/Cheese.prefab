@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2255918464852477455}
   - component: {fileID: 2255918464852477452}
   - component: {fileID: -5609795306717578991}
-  - component: {fileID: 5744745751526474033}
+  - component: {fileID: 8823978322091414448}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Cheese
@@ -102,7 +102,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &5744745751526474033
+--- !u!114 &8823978322091414448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

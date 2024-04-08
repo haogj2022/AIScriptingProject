@@ -5,11 +5,6 @@ using GameAI.PathFinding;
 
 public class GridVisualize : MonoBehaviour
 {
-    // the max number of columns in the grid.
-    public int maxCol;
-    // the max number of rows in the grid
-    public int maxRow;
-
     // The prefab for representing a grid cell. We will 
     // use the prefab to show/visualize the status of the cell
     // as we proceed with our pathfinding.
@@ -35,18 +30,42 @@ public class GridVisualize : MonoBehaviour
     public AIMovement hiderAI;
     public GameObject cheese;
 
+    [Header("Custom Grid")]
+    public bool customGrid;
+    // the max number of columns in the grid.
+    public int maxCol;
+    // the max number of rows in the grid
+    public int maxRow;
+    // the list of unwalkable cells in the grid
+    public Vector2[] unwalkableCellPos;
+    // the spawn location of seeker
+    public Vector2 seekerPos;
+    // the spawn location of hider
+    public Vector2 hiderPos;
+    // the spawn locations of cheese
+    public Vector2[] cheesePos;
+
     private void Awake()
     {
-        // Define the size of the grid
-        int randomCol = Random.Range(10, 20);
-        int randomRow = Random.Range(10, 20);
+        if (!customGrid)
+        {
+            // Define the size of the grid
+            int randomCol = Random.Range(10, 20);
+            int randomRow = Random.Range(10, 20);
 
-        maxCol = randomCol;
-        maxRow = randomRow;
+            maxCol = randomCol;
+            maxRow = randomRow;
 
-        // Set the default position of the AI
-        seekerAI.transform.position = Vector2.zero;
-        hiderAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
+            // Set the default position of the AI
+            seekerAI.transform.position = Vector2.zero;
+            hiderAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
+        }
+
+        if (customGrid)
+        {
+            seekerAI.transform.position = seekerPos;
+            hiderAI.transform.position = hiderPos;
+        }
 
         // Construct the grid and the cell game objects.
         Construct(maxCol, maxRow);
@@ -172,14 +191,17 @@ public class GridVisualize : MonoBehaviour
                 // create the GridCells
                 gridCellArray[i, j] = new GridCell(this, indices[i, j]);
 
-                // set a number of grid cell to unwalkable
-                bool walkableCell = Random.value > 0.1f;
-                gridCellArray[i, j].IsWalkable = walkableCell;                               
-
-                if (gridCellArray[i, j].IsWalkable == false)
+                if (!customGrid)
                 {
-                    GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
-                    selectedCell.SetInnerColor(unwalkableCell);
+                    // set a number of grid cell to unwalkable
+                    bool walkableCell = Random.value > 0.1f;
+                    gridCellArray[i, j].IsWalkable = walkableCell;
+
+                    if (gridCellArray[i, j].IsWalkable == false)
+                    {
+                        GridCellVisualize selectedCell = gridCellGameObjects[i, j].GetComponent<GridCellVisualize>();
+                        selectedCell.SetInnerColor(unwalkableCell);
+                    }
                 }
 
                 // set a reference to the GridCellVisualize
@@ -193,31 +215,61 @@ public class GridVisualize : MonoBehaviour
             }
         }
 
-        SetWalkableCell();
+        SetWalkableCell();        
     }
 
     void SetWalkableCell()
     {
-        // set specific grid cells to walkable
-        gridCellArray[0, 0].IsWalkable = true;
-        gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
-        gridCellArray[0, maxRow - 1].IsWalkable = true;
-        gridCellArray[maxCol - 1, 0].IsWalkable = true;
+        if (!customGrid)
+        {
+            // set specific grid cells to walkable
+            gridCellArray[0, 0].IsWalkable = true;
+            gridCellArray[maxCol - 1, maxRow - 1].IsWalkable = true;
+            gridCellArray[0, maxRow - 1].IsWalkable = true;
+            gridCellArray[maxCol - 1, 0].IsWalkable = true;
 
-        GridCellVisualize seekerAI = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
-        seekerAI.SetInnerColor(walkableCell);
+            GridCellVisualize seekerAI = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
+            seekerAI.SetInnerColor(walkableCell);
 
-        GridCellVisualize hiderAI = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-        hiderAI.SetInnerColor(walkableCell);
+            GridCellVisualize hiderAI = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
+            hiderAI.SetInnerColor(walkableCell);
 
-        GridCellVisualize cheese1 = gridCellGameObjects[0, maxRow - 1].GetComponent<GridCellVisualize>();
-        cheese1.SetInnerColor(walkableCell);
+            GridCellVisualize cheese1 = gridCellGameObjects[0, maxRow - 1].GetComponent<GridCellVisualize>();
+            cheese1.SetInnerColor(walkableCell);
 
-        GridCellVisualize cheese2 = gridCellGameObjects[maxCol - 1, 0].GetComponent<GridCellVisualize>();
-        cheese2.SetInnerColor(walkableCell);
+            GridCellVisualize cheese2 = gridCellGameObjects[maxCol - 1, 0].GetComponent<GridCellVisualize>();
+            cheese2.SetInnerColor(walkableCell);
 
-        Instantiate(cheese, new Vector3(0, maxRow - 1, 0.0f), Quaternion.identity);
-        Instantiate(cheese, new Vector3(maxCol - 1, 0, 0.0f), Quaternion.identity);
+            Instantiate(cheese, new Vector3(0, maxRow - 1, 0.0f), Quaternion.identity);
+            Instantiate(cheese, new Vector3(maxCol - 1, 0, 0.0f), Quaternion.identity);
+        }      
+        
+        if (customGrid)
+        {
+            gridCellArray[((int)seekerPos.x), ((int)seekerPos.y)].IsWalkable = true;
+            gridCellArray[((int)hiderPos.x), ((int)hiderPos.y)].IsWalkable = true;
+            
+            for (int i = 0; i < cheesePos.Length; i++)
+            {
+                gridCellArray[((int)cheesePos[i].x), ((int)cheesePos[i].y)].IsWalkable = true;
+                GridCellVisualize cheeseCell = gridCellGameObjects[((int)cheesePos[i].x), ((int)cheesePos[i].y)].GetComponent<GridCellVisualize>();
+                cheeseCell.SetInnerColor(walkableCell);
+                Instantiate(cheese, new Vector3(((int)cheesePos[i].x), ((int)cheesePos[i].y), 0.0f), Quaternion.identity);
+            }
+
+            GridCellVisualize seekerAI = gridCellGameObjects[((int)seekerPos.x), ((int)seekerPos.y)].GetComponent<GridCellVisualize>();
+            seekerAI.SetInnerColor(walkableCell);
+
+            GridCellVisualize hiderAI = gridCellGameObjects[((int)hiderPos.x), ((int)hiderPos.y)].GetComponent<GridCellVisualize>();
+            hiderAI.SetInnerColor(walkableCell);
+
+            for (int i = 0; i < unwalkableCellPos.Length; i++)
+            {
+                gridCellArray[((int)unwalkableCellPos[i].x), ((int)unwalkableCellPos[i].y)].IsWalkable = false;
+                GridCellVisualize selectedCell = gridCellGameObjects[((int)unwalkableCellPos[i].x), ((int)unwalkableCellPos[i].y)].GetComponent<GridCellVisualize>();
+                selectedCell.SetInnerColor(unwalkableCell);
+            }
+        }
     }
 
     // get neighbour cells for a given cell.
