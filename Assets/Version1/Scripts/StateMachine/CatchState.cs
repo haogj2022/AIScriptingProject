@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CatchState : State
 {
+    public GameObject tomWins;
     bool caughtHider;
 
     public override State RunCurrentState()
     {
         if (caughtHider)
         {
-            Debug.Log("Seeker caught Hider. Seeker won");
+            tomWins.SetActive(true);
+            //Debug.Log("Seeker caught Hider. Seeker won");
             caughtHider = false;
         }
 

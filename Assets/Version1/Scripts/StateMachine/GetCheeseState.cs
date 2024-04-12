@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GetCheeseState : State
 {
     public GridVisualize gridVisualize;
     public FleeState fleeState;
+    public GameObject jerryWins;
     public bool gotCheese;
     public int numOfCheese;
 
@@ -22,7 +21,8 @@ public class GetCheeseState : State
     {
         if (numOfCheese == 2)
         {
-            Debug.Log("Hider collected all cheese. Hider won");
+            jerryWins.SetActive(true);
+            //Debug.Log("Hider collected all cheese. Hider won");
             numOfCheese = 0;
             Time.timeScale = 0;
         }
@@ -42,9 +42,9 @@ public class GetCheeseState : State
     {
         if (collision.tag == "Cheese")
         {
+            gotCheese = true;
             fleeState.canSeeCheese = false;
             fleeState.FleeFromSeeker();
-            gotCheese = true;
         }
     }
 }

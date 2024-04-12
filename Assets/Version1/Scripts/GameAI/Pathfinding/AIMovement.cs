@@ -86,7 +86,7 @@ public class AIMovement : MonoBehaviour
         // Now we have a pathfinder.
         if (aiPathFinder.Status == PathFinderStatus.RUNNING)
         {
-            Debug.Log("Pathfinder already running. Cannot set destination now");
+            //Debug.Log("Pathfinder already running. Cannot set destination now");
             return;
         }
         // remove all waypoints from the queue.
@@ -126,6 +126,6 @@ public class AIMovement : MonoBehaviour
 
     void OnFailurePathFinding()
     {
-        Debug.Log("Error: Cannot find path");
+        //Debug.Log("Error: Cannot find path");
     }
 }

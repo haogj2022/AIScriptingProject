@@ -22,7 +22,7 @@ public class Cheese : MonoBehaviour
         if (collision.tag == "Mouse")
         {
             getCheeseState.numOfCheese += 1;
-            Debug.Log("Cheese collected");
+            //Debug.Log("Cheese collected");
             gameObject.SetActive(false);
         }
     }

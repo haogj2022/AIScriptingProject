@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SeekState : State
@@ -24,7 +22,7 @@ public class SeekState : State
 
     void MoveToDestination()
     {
-        if (gridVisualize.seekerAI.transform.position == gridVisualize.gridCellGameObjects[seekerCol, seekerRow].transform.position && !canSeeHider)
+        if (transform.position == gridVisualize.gridCellGameObjects[seekerCol, seekerRow].transform.position && !canSeeHider)
         {
             //Debug.Log("Seeker position is " + seekerCol + ", " + seekerRow);
             seekerCol = Random.Range(0, gridVisualize.maxCol - 1);

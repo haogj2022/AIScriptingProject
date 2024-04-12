@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChaseState : State
@@ -26,15 +24,6 @@ public class ChaseState : State
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Hider")
-        {           
-            //Debug.Log("Hider has fleed away. Seeker chased Hider");            
-            ChaseHider();
-        }
-    }
-
     private void Update()
     {        
         // seeker and hider are at the same position
@@ -43,8 +32,7 @@ public class ChaseState : State
             canCatchHider = true;
         }
 
-        // seeker reaches the last position of hider
-        if (gridVisualize.seekerAI.transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position)
+        if (transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position)
         {
             ChaseHider();
         }

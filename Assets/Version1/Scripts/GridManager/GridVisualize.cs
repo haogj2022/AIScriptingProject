@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameAI.PathFinding;
@@ -42,8 +41,6 @@ public class GridVisualize : MonoBehaviour
     public Vector2 seekerPos;
     // the spawn location of hider
     public Vector2 hiderPos;
-    // the spawn locations of cheese
-    public Vector2[] cheesePos;
 
     private void Awake()
     {
@@ -247,15 +244,7 @@ public class GridVisualize : MonoBehaviour
         if (customGrid)
         {
             gridCellArray[((int)seekerPos.x), ((int)seekerPos.y)].IsWalkable = true;
-            gridCellArray[((int)hiderPos.x), ((int)hiderPos.y)].IsWalkable = true;
-            
-            for (int i = 0; i < cheesePos.Length; i++)
-            {
-                gridCellArray[((int)cheesePos[i].x), ((int)cheesePos[i].y)].IsWalkable = true;
-                GridCellVisualize cheeseCell = gridCellGameObjects[((int)cheesePos[i].x), ((int)cheesePos[i].y)].GetComponent<GridCellVisualize>();
-                cheeseCell.SetInnerColor(walkableCell);
-                Instantiate(cheese, new Vector3(((int)cheesePos[i].x), ((int)cheesePos[i].y), 0.0f), Quaternion.identity);
-            }
+            gridCellArray[((int)hiderPos.x), ((int)hiderPos.y)].IsWalkable = true;           
 
             GridCellVisualize seekerAI = gridCellGameObjects[((int)seekerPos.x), ((int)seekerPos.y)].GetComponent<GridCellVisualize>();
             seekerAI.SetInnerColor(walkableCell);
