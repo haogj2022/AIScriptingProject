@@ -3,7 +3,9 @@ using UnityEngine;
 public class FleeState : State
 {
     public GridVisualize gridVisualize;
+    public HideState hideState;
     public GetCheeseState getCheeseState;
+    public bool canSeeSeeker;
     public bool canSeeCheese;
 
     int hiderCol;
@@ -13,6 +15,7 @@ public class FleeState : State
 
     public override State RunCurrentState()
     {
+        if (canSeeSeeker) return hideState;
         if (canSeeCheese) return getCheeseState;
         else return this;
     }
@@ -29,6 +32,14 @@ public class FleeState : State
         {
             canSeeCheese = true;
         }
+
+        if (collision.tag == "Seeker")
+        {
+            Debug.Log("Hider saw Seeker");           
+            canSeeSeeker = true;
+            hideState.canFlee = false;
+            hideState.FindHidingSpot();
+        }
     }
 
     private void Update()
@@ -39,7 +50,7 @@ public class FleeState : State
             gotCaught = true;
         }
 
-        if (transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position)
+        if (transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position && !canSeeSeeker)
         {
             FleeFromSeeker();
         }

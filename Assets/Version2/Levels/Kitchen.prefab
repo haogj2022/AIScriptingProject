@@ -1879,8 +1879,12 @@ MonoBehaviour:
   - {x: 17, y: 3}
   - {x: 18, y: 3}
   - {x: 19, y: 3}
-  seekerPos: {x: 0, y: 0}
-  hiderPos: {x: 19, y: 14}
+  hidingSpotCellPos:
+  - {x: 6, y: 13}
+  - {x: 10, y: 13}
+  - {x: 14, y: 13}
+  - {x: 18, y: 9}
+  - {x: 18, y: 5}
 --- !u!1 &6009364245233306984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,7 +2307,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 2
 --- !u!50 &6009364246031003099
 Rigidbody2D:
   serializedVersion: 4
@@ -2338,7 +2342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 6009364245016140420}
+  hideState: {fileID: 6009364246235940367}
   getCheeseState: {fileID: 6009364245363872181}
+  canSeeSeeker: 0
   canSeeCheese: 0
 --- !u!1 &6009364246088443528
 GameObject:
@@ -2473,7 +2479,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 10
 --- !u!50 &6009364246235940366
 Rigidbody2D:
   serializedVersion: 4
@@ -2509,7 +2515,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 6009364245016140420}
   fleeState: {fileID: 6009364246031003096}
-  canSeeSeeker: 0
+  getCheeseState: {fileID: 6009364245363872181}
+  canFlee: 0
+  canSeeCheese: 0
 --- !u!1 &6009364246351806455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,6 +2602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 6009364245016140420}
+  seekState: {fileID: 6009364245233306986}
   catchState: {fileID: 6009364245744660319}
   canCatchHider: 0
 --- !u!1 &6009364246546828643
@@ -2643,7 +2652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e50d479d2353d45b4dd936d55f1a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 6009364246235940367}
+  currentState: {fileID: 6009364246031003096}
 --- !u!1 &7092803396361776258
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,6 +5782,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4100934008343915019}
     m_Modifications:
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
       propertyPath: m_Name
       value: Grid Cell (14)
@@ -8457,6 +8478,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4066796304022796937}
     m_Modifications:
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
       propertyPath: m_Name
       value: Grid Cell (18)
@@ -19897,6 +19930,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4100934008343915019}
     m_Modifications:
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
       propertyPath: m_Name
       value: Grid Cell (6)
@@ -21393,6 +21442,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8225616612195648310}
     m_Modifications:
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.b
+      value: 0.09557128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
       propertyPath: m_Name
       value: Grid Cell (18)
@@ -21585,6 +21646,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4100934008343915019}
     m_Modifications:
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025602441670941834, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7025602442517187110, guid: 75c909c623a74324e8e5d23147619e80, type: 3}
       propertyPath: m_Name
       value: Grid Cell (10)

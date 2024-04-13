@@ -14,6 +14,9 @@ public class GridCell : Node<Vector2Int>
     // Is this cell walkable?
     public bool IsWalkable { get; set; }
 
+    // Is this cell a hiding spot?
+    public bool IsHidingSpot { get; set; }
+
     // Keep a reference to the grid so that 
     // we can find the neighbours.
     private GridVisualize gridVisualize;
@@ -26,6 +29,9 @@ public class GridCell : Node<Vector2Int>
 
         // by default we set the cell to be walkable.
         IsWalkable = true;
+
+        // by default we set the cell to be not a hiding spot.
+        IsHidingSpot = false;
     }
 
     // get the neighbours for this cell.

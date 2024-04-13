@@ -30,8 +30,9 @@ public class GetCheeseState : State
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Cheese")
+        if (collision.tag == "Cheese" && !fleeState.canSeeSeeker)
         {
+            Debug.Log("Get Cheese State");
             hiderCol = (int)collision.transform.position.x;
             hiderRow = (int)collision.transform.position.y;
             gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
@@ -40,8 +41,9 @@ public class GetCheeseState : State
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Cheese")
+        if (collision.tag == "Cheese" && !fleeState.canSeeSeeker)
         {
+            Debug.Log("got cheese");
             gotCheese = true;
             fleeState.canSeeCheese = false;
             fleeState.FleeFromSeeker();

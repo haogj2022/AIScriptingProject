@@ -63,6 +63,7 @@ public class SeekState : State
         if (collision.tag == "Hider")
         {            
             canSeeHider = true;
+            chaseState.ChaseHider();
         }
     }
 }

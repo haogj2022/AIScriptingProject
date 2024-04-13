@@ -21,6 +21,7 @@ public class GridVisualize : MonoBehaviour
 
     private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
     private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+    private Color hidingSpotCell = new Color(0.0f, 255.0f, 0.0f, 1.0f);
 
     //public Transform aiDestination;
     //public AIMovement aiMovement;
@@ -37,10 +38,8 @@ public class GridVisualize : MonoBehaviour
     public int maxRow;
     // the list of unwalkable cells in the grid
     public Vector2[] unwalkableCellPos;
-    // the spawn location of seeker
-    public Vector2 seekerPos;
-    // the spawn location of hider
-    public Vector2 hiderPos;
+    // the list of unwalkable cells in the grid
+    public Vector2[] hidingSpotCellPos;
 
     private void Awake()
     {
@@ -56,12 +55,6 @@ public class GridVisualize : MonoBehaviour
             // Set the default position of the AI
             seekerAI.transform.position = Vector2.zero;
             hiderAI.transform.position = new Vector2(maxCol - 1, maxRow - 1);
-        }
-
-        if (customGrid)
-        {
-            seekerAI.transform.position = seekerPos;
-            hiderAI.transform.position = hiderPos;
         }
 
         // Construct the grid and the cell game objects.
@@ -243,20 +236,18 @@ public class GridVisualize : MonoBehaviour
         
         if (customGrid)
         {
-            gridCellArray[((int)seekerPos.x), ((int)seekerPos.y)].IsWalkable = true;
-            gridCellArray[((int)hiderPos.x), ((int)hiderPos.y)].IsWalkable = true;           
-
-            GridCellVisualize seekerAI = gridCellGameObjects[((int)seekerPos.x), ((int)seekerPos.y)].GetComponent<GridCellVisualize>();
-            seekerAI.SetInnerColor(walkableCell);
-
-            GridCellVisualize hiderAI = gridCellGameObjects[((int)hiderPos.x), ((int)hiderPos.y)].GetComponent<GridCellVisualize>();
-            hiderAI.SetInnerColor(walkableCell);
-
             for (int i = 0; i < unwalkableCellPos.Length; i++)
             {
                 gridCellArray[((int)unwalkableCellPos[i].x), ((int)unwalkableCellPos[i].y)].IsWalkable = false;
                 GridCellVisualize selectedCell = gridCellGameObjects[((int)unwalkableCellPos[i].x), ((int)unwalkableCellPos[i].y)].GetComponent<GridCellVisualize>();
                 selectedCell.SetInnerColor(unwalkableCell);
+            }
+
+            for (int i = 0; i < hidingSpotCellPos.Length; i++)
+            {
+                gridCellArray[((int)hidingSpotCellPos[i].x), ((int)hidingSpotCellPos[i].y)].IsHidingSpot = true;
+                GridCellVisualize selectedCell = gridCellGameObjects[((int)hidingSpotCellPos[i].x), ((int)hidingSpotCellPos[i].y)].GetComponent<GridCellVisualize>();
+                selectedCell.SetInnerColor(hidingSpotCell);
             }
         }
     }
