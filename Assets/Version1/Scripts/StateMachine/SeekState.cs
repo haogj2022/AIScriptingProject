@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SeekState : State
@@ -5,6 +6,7 @@ public class SeekState : State
     public GridVisualize gridVisualize;
     public ChaseState chaseState;
     public bool canSeeHider;
+    public bool hiderIsHiding;
 
     int seekerCol;
     int seekerRow;
@@ -17,7 +19,38 @@ public class SeekState : State
 
     private void Update()
     {
-        MoveToDestination();
+        if (!hiderIsHiding)
+        {
+            MoveToDestination();
+        }
+    }
+
+    public void FindSeekingSpot()
+    {
+        seekerCol = Random.Range(0, gridVisualize.maxCol - 1);
+        seekerRow = Random.Range(0, gridVisualize.maxRow - 1);
+
+        if (gridVisualize.GetGridCell(seekerCol, seekerRow).IsSeekingSpot)
+        {
+            //Debug.Log("Seeking at " + seekerCol + ", " + seekerRow);
+            LocateDestination();
+            StartCoroutine(WaitUntilHiderLeaves());
+        }
+        else
+        {
+            RelocateDestination();
+            FindSeekingSpot();
+        }
+    }
+
+    IEnumerator WaitUntilHiderLeaves()
+    {
+        //Debug.Log("wait");
+        yield return new WaitForSeconds(2f);
+        //Debug.Log("chase");
+        canSeeHider = true;
+        hiderIsHiding = false;
+        chaseState.ChaseHider();
     }
 
     void MoveToDestination()
@@ -34,14 +67,15 @@ public class SeekState : State
 
     void NextDestination()
     {
-        if (gridVisualize.GetGridCell(seekerCol, seekerRow).IsWalkable)
+        if (gridVisualize.GetGridCell(seekerCol, seekerRow).IsWalkable && !gridVisualize.GetGridCell(seekerCol, seekerRow).IsRestricted)
         {
             LocateDestination();
         }
         else
         {
             RelocateDestination();
-        }
+            NextDestination();
+        }      
     }
 
     void LocateDestination()
@@ -55,7 +89,6 @@ public class SeekState : State
         seekerCol = Random.Range(0, gridVisualize.maxCol - 1);
         seekerRow = Random.Range(0, gridVisualize.maxRow - 1);
         //Debug.Log("Seeker destination changes to " + seekerCol + ", " + seekerRow);
-        NextDestination();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,6 +96,7 @@ public class SeekState : State
         if (collision.tag == "Hider")
         {            
             canSeeHider = true;
+            hiderIsHiding = false;
             chaseState.ChaseHider();
         }
     }

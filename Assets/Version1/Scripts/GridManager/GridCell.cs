@@ -17,6 +17,12 @@ public class GridCell : Node<Vector2Int>
     // Is this cell a hiding spot?
     public bool IsHidingSpot { get; set; }
 
+    // Is this cell a seeking spot?
+    public bool IsSeekingSpot { get; set; }
+
+    // Is this cell a restricted spot?
+    public bool IsRestricted { get; set; }
+
     // Keep a reference to the grid so that 
     // we can find the neighbours.
     private GridVisualize gridVisualize;
@@ -32,6 +38,12 @@ public class GridCell : Node<Vector2Int>
 
         // by default we set the cell to be not a hiding spot.
         IsHidingSpot = false;
+
+        // by default we set the cell to be not a seeking spot.
+        IsSeekingSpot = false;
+
+        // by default we set the cell to be not restricted.
+        IsRestricted = false;
     }
 
     // get the neighbours for this cell.

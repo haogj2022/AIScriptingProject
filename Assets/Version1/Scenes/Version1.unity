@@ -258,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 637292681}
+  seekState: {fileID: 2027201365}
   catchState: {fileID: 1208296969}
   canCatchHider: 0
 --- !u!58 &64131142
@@ -1015,7 +1016,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 637292681}
   fleeState: {fileID: 1375885498}
-  canSeeSeeker: 0
+  getCheeseState: {fileID: 22997508}
+  canFlee: 0
+  canSeeCheese: 0
 --- !u!50 &547857286
 Rigidbody2D:
   serializedVersion: 4
@@ -1153,8 +1156,9 @@ MonoBehaviour:
   maxCol: 0
   maxRow: 0
   unwalkableCellPos: []
-  seekerPos: {x: 0, y: 0}
-  hiderPos: {x: 0, y: 0}
+  hidingSpotCellPos: []
+  seekingSpotCellPos: []
+  restrictedCellPos: []
 --- !u!1 &661232830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1632,7 +1636,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridVisualize: {fileID: 637292681}
+  hideState: {fileID: 547857285}
   getCheeseState: {fileID: 22997508}
+  canSeeSeeker: 0
   canSeeCheese: 0
 --- !u!58 &1375885499
 CircleCollider2D:
@@ -2389,6 +2395,7 @@ MonoBehaviour:
   gridVisualize: {fileID: 637292681}
   chaseState: {fileID: 64131141}
   canSeeHider: 0
+  hiderIsHiding: 0
 --- !u!58 &2027201366
 CircleCollider2D:
   m_ObjectHideFlags: 0

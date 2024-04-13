@@ -20,8 +20,9 @@ public class ChaseState : State
     private void Update()
     {        
         // seeker and hider are at the same position
-        if (gridVisualize.seekerAI.transform.position == gridVisualize.hiderAI.transform.position)
+        if (transform.position == gridVisualize.hiderAI.transform.position)
         {
+            //Debug.Log("catch");
             canCatchHider = true;
         }
 
@@ -36,10 +37,14 @@ public class ChaseState : State
         hiderCol = (int)gridVisualize.hiderAI.transform.position.x;
         hiderRow = (int)gridVisualize.hiderAI.transform.position.y;
 
-        if (gridVisualize.GetGridCell(hiderCol, hiderRow).IsHidingSpot)
+        if (gridVisualize.GetGridCell(hiderCol, hiderRow).IsHidingSpot || gridVisualize.GetGridCell(hiderCol, hiderRow).IsRestricted)
         {
-            Debug.Log("Hider is hiding at " + hiderCol + ", " + hiderRow);
-            gridVisualize.seekerAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(0, 0));
+            if (gridVisualize.customGrid)
+            {
+                seekState.canSeeHider = false;
+                seekState.hiderIsHiding = true;
+                seekState.FindSeekingSpot();
+            }
         }
         else
         {

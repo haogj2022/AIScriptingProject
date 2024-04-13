@@ -33,9 +33,9 @@ public class FleeState : State
             canSeeCheese = true;
         }
 
-        if (collision.tag == "Seeker")
+        if (collision.tag == "Seeker" && gridVisualize.customGrid)
         {
-            Debug.Log("Hider saw Seeker");           
+            //Debug.Log("Hider saw Seeker");           
             canSeeSeeker = true;
             hideState.canFlee = false;
             hideState.FindHidingSpot();
@@ -45,7 +45,7 @@ public class FleeState : State
     private void Update()
     {
         // seeker and hider are at the same position
-        if (gridVisualize.seekerAI.transform.position == gridVisualize.hiderAI.transform.position)
+        if (transform.position == gridVisualize.seekerAI.transform.position)
         {
             gotCaught = true;
         }

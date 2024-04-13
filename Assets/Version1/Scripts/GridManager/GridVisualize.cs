@@ -19,9 +19,10 @@ public class GridVisualize : MonoBehaviour
     // the 2d array of the GridCell.
     protected GridCell[,] gridCellArray;
 
-    private Color walkableCell = new Color(42 / 255.0f, 99 / 255.0f, 164 / 255.0f, 1.0f);
     private Color unwalkableCell = new Color(0.0f, 0.0f, 0.0f, 1.0f);
     private Color hidingSpotCell = new Color(0.0f, 255.0f, 0.0f, 1.0f);
+    private Color seekingSpotCell = new Color(255.0f, 0.0f, 0.0f, 1.0f);
+    private Color restrictedCell = new Color(100 / 255.0f, 100 / 255.0f, 100 / 255.0f, 1.0f);
 
     //public Transform aiDestination;
     //public AIMovement aiMovement;
@@ -38,8 +39,12 @@ public class GridVisualize : MonoBehaviour
     public int maxRow;
     // the list of unwalkable cells in the grid
     public Vector2[] unwalkableCellPos;
-    // the list of unwalkable cells in the grid
+    // the list of hiding spot cells in the grid
     public Vector2[] hidingSpotCellPos;
+    // the list of seeking spot cells in the grid
+    public Vector2[] seekingSpotCellPos;
+    // the list of restricted cells in the grid
+    public Vector2[] restrictedCellPos;
 
     private void Awake()
     {
@@ -218,18 +223,6 @@ public class GridVisualize : MonoBehaviour
             gridCellArray[0, maxRow - 1].IsWalkable = true;
             gridCellArray[maxCol - 1, 0].IsWalkable = true;
 
-            GridCellVisualize seekerAI = gridCellGameObjects[0, 0].GetComponent<GridCellVisualize>();
-            seekerAI.SetInnerColor(walkableCell);
-
-            GridCellVisualize hiderAI = gridCellGameObjects[maxCol - 1, maxRow - 1].GetComponent<GridCellVisualize>();
-            hiderAI.SetInnerColor(walkableCell);
-
-            GridCellVisualize cheese1 = gridCellGameObjects[0, maxRow - 1].GetComponent<GridCellVisualize>();
-            cheese1.SetInnerColor(walkableCell);
-
-            GridCellVisualize cheese2 = gridCellGameObjects[maxCol - 1, 0].GetComponent<GridCellVisualize>();
-            cheese2.SetInnerColor(walkableCell);
-
             Instantiate(cheese, new Vector3(0, maxRow - 1, 0.0f), Quaternion.identity);
             Instantiate(cheese, new Vector3(maxCol - 1, 0, 0.0f), Quaternion.identity);
         }      
@@ -243,12 +236,26 @@ public class GridVisualize : MonoBehaviour
                 selectedCell.SetInnerColor(unwalkableCell);
             }
 
+            for (int i = 0; i < restrictedCellPos.Length; i++)
+            {
+                gridCellArray[((int)restrictedCellPos[i].x), ((int)restrictedCellPos[i].y)].IsRestricted = true;
+                GridCellVisualize selectedCell = gridCellGameObjects[((int)restrictedCellPos[i].x), ((int)restrictedCellPos[i].y)].GetComponent<GridCellVisualize>();
+                selectedCell.SetInnerColor(restrictedCell);
+            }
+
             for (int i = 0; i < hidingSpotCellPos.Length; i++)
             {
                 gridCellArray[((int)hidingSpotCellPos[i].x), ((int)hidingSpotCellPos[i].y)].IsHidingSpot = true;
                 GridCellVisualize selectedCell = gridCellGameObjects[((int)hidingSpotCellPos[i].x), ((int)hidingSpotCellPos[i].y)].GetComponent<GridCellVisualize>();
                 selectedCell.SetInnerColor(hidingSpotCell);
             }
+
+            for (int i = 0; i < seekingSpotCellPos.Length; i++)
+            {
+                gridCellArray[((int)seekingSpotCellPos[i].x), ((int)seekingSpotCellPos[i].y)].IsSeekingSpot = true;
+                GridCellVisualize selectedCell = gridCellGameObjects[((int)seekingSpotCellPos[i].x), ((int)seekingSpotCellPos[i].y)].GetComponent<GridCellVisualize>();
+                selectedCell.SetInnerColor(seekingSpotCell);
+            }            
         }
     }
 

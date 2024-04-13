@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HideState : State
@@ -29,9 +28,9 @@ public class HideState : State
 
     IEnumerator WaitUntilSeekerLeaves()
     {
-        Debug.Log("wait");
-        yield return new WaitForSeconds(3f);
-        Debug.Log("flee");
+        //Debug.Log("wait");
+        yield return new WaitForSeconds(5f);
+        //Debug.Log("flee");
         canFlee = true;
         fleeState.canSeeSeeker = false;
         fleeState.FleeFromSeeker();
@@ -44,7 +43,7 @@ public class HideState : State
 
         if (gridVisualize.GetGridCell(hiderCol, hiderRow).IsHidingSpot)
         {
-            Debug.Log("Hiding spot found at " + hiderCol + ", " + hiderRow);
+            //Debug.Log("Hiding spot found at " + hiderCol + ", " + hiderRow);
             LocateDestination();
             StartCoroutine(WaitUntilSeekerLeaves());
         }

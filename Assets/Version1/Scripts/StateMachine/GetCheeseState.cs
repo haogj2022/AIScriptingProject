@@ -32,7 +32,7 @@ public class GetCheeseState : State
     {
         if (collision.tag == "Cheese" && !fleeState.canSeeSeeker)
         {
-            Debug.Log("Get Cheese State");
+            //Debug.Log("Get Cheese State");
             hiderCol = (int)collision.transform.position.x;
             hiderRow = (int)collision.transform.position.y;
             gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
@@ -43,7 +43,7 @@ public class GetCheeseState : State
     {
         if (collision.tag == "Cheese" && !fleeState.canSeeSeeker)
         {
-            Debug.Log("got cheese");
+            //Debug.Log("got cheese");
             gotCheese = true;
             fleeState.canSeeCheese = false;
             fleeState.FleeFromSeeker();
