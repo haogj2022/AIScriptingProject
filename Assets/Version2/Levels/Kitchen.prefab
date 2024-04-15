@@ -2002,7 +2002,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 1
 --- !u!50 &6009364245233306989
 Rigidbody2D:
   serializedVersion: 4
@@ -2341,7 +2341,7 @@ GameObject:
   - component: {fileID: 6009364246031003096}
   m_Layer: 0
   m_Name: Flee State
-  m_TagString: Untagged
+  m_TagString: Hider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2513,7 +2513,7 @@ GameObject:
   - component: {fileID: 6009364246235940367}
   m_Layer: 0
   m_Name: Hide State
-  m_TagString: Hider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2548,7 +2548,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 10
 --- !u!50 &6009364246235940366
 Rigidbody2D:
   serializedVersion: 4
@@ -2596,8 +2596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6009364246351806454}
-  - component: {fileID: 6009364246351806459}
-  - component: {fileID: 6009364246351806456}
   - component: {fileID: 6009364246351806457}
   m_Layer: 0
   m_Name: Chase State
@@ -2621,43 +2619,6 @@ Transform:
   m_Father: {fileID: 6009364244787290389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &6009364246351806459
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6009364246351806455}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4
---- !u!50 &6009364246351806456
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6009364246351806455}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &6009364246351806457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2703,8 +2664,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6009364246235940364}
   - {fileID: 6009364246031003101}
+  - {fileID: 6009364246235940364}
   - {fileID: 6009364245363872178}
   m_Father: {fileID: 6009364244816023619}
   m_RootOrder: -1

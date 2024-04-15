@@ -18,6 +18,15 @@ public class HideState : State
         else return this;
     }
 
+    private void Update()
+    {
+        // seeker and hider are at the same position
+        if (gridVisualize.hiderAI.transform.position == gridVisualize.seekerAI.transform.position)
+        {
+            fleeState.gotCaught = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Cheese")

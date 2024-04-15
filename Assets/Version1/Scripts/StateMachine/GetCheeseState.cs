@@ -26,6 +26,12 @@ public class GetCheeseState : State
             numOfCheese = 0;
             Time.timeScale = 0;
         }
+
+        // seeker and hider are at the same position
+        if (gridVisualize.hiderAI.transform.position == gridVisualize.seekerAI.transform.position)
+        {
+            fleeState.gotCaught = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

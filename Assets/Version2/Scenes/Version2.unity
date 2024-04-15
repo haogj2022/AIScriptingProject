@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6009364245233306988, guid: 49fbf698f83e16e43a8eaf71d36b4198, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6009364245977551008, guid: 49fbf698f83e16e43a8eaf71d36b4198, type: 3}
       propertyPath: m_Name
       value: Kitchen
@@ -178,6 +182,10 @@ PrefabInstance:
     - target: {fileID: 6009364245977551011, guid: 49fbf698f83e16e43a8eaf71d36b4198, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009364246351806459, guid: 49fbf698f83e16e43a8eaf71d36b4198, type: 3}
+      propertyPath: m_Radius
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

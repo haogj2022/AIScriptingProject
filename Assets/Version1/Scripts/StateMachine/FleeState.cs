@@ -11,7 +11,7 @@ public class FleeState : State
     int hiderCol;
     int hiderRow;
 
-    bool gotCaught;
+    public bool gotCaught;
 
     public override State RunCurrentState()
     {
@@ -33,7 +33,7 @@ public class FleeState : State
             canSeeCheese = true;
         }
 
-        if (collision.tag == "Seeker" && gridVisualize.customGrid)
+        if (collision.tag == "Seeker" && gridVisualize.customGrid && !gotCaught)
         {
             //Debug.Log("Hider saw Seeker");           
             canSeeSeeker = true;
@@ -45,12 +45,12 @@ public class FleeState : State
     private void Update()
     {
         // seeker and hider are at the same position
-        if (transform.position == gridVisualize.seekerAI.transform.position)
+        if (gridVisualize.hiderAI.transform.position == gridVisualize.seekerAI.transform.position)
         {
             gotCaught = true;
         }
 
-        if (transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position && !canSeeSeeker)
+        if (gridVisualize.hiderAI.transform.position == gridVisualize.gridCellGameObjects[hiderCol, hiderRow].transform.position && !canSeeSeeker)
         {
             FleeFromSeeker();
         }
