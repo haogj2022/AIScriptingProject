@@ -7,6 +7,7 @@ public class SeekState : State
     public ChaseState chaseState;
     public bool canSeeHider;
     public bool hiderIsHiding;
+    public GameObject body;
 
     int seekerCol;
     int seekerRow;
@@ -81,6 +82,16 @@ public class SeekState : State
     void LocateDestination()
     {        
         gridVisualize.seekerAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(seekerCol, seekerRow));
+
+        if (seekerCol < gridVisualize.seekerAI.transform.position.x)
+        {
+            body.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        if (seekerCol > gridVisualize.seekerAI.transform.position.x)
+        {
+            body.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     void RelocateDestination()

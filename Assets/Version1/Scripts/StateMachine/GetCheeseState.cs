@@ -7,6 +7,7 @@ public class GetCheeseState : State
     public GameObject jerryWins;
     public bool gotCheese;
     public int numOfCheese;
+    public GameObject body;
 
     int hiderCol;
     int hiderRow;
@@ -42,6 +43,16 @@ public class GetCheeseState : State
             hiderCol = (int)collision.transform.position.x;
             hiderRow = (int)collision.transform.position.y;
             gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
+
+            if (hiderCol < gridVisualize.hiderAI.transform.position.x)
+            {
+                body.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+
+            if (hiderCol > gridVisualize.hiderAI.transform.position.x)
+            {
+                body.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
         }
     }
 

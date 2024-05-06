@@ -8,6 +8,7 @@ public class HideState : State
     public GetCheeseState getCheeseState;
     public bool canFlee;
     public bool canSeeCheese;
+    public GameObject body;
 
     int hiderCol;
     int hiderRow;
@@ -65,6 +66,16 @@ public class HideState : State
     public void LocateDestination()
     {
         gridVisualize.hiderAI.SetDestination(gridVisualize, gridVisualize.GetGridCell(hiderCol, hiderRow));
+
+        if (hiderCol < gridVisualize.hiderAI.transform.position.x)
+        {
+            body.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        if (hiderCol > gridVisualize.hiderAI.transform.position.x)
+        {
+            body.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     public void RelocateDestination()
